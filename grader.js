@@ -58,8 +58,9 @@ var checkHtmlFile = function(htmlfile, checksfile) {
 
 var checkHtmlUrl = function(url, checksfile) {
     rest.get(url).on('complete', function(result, response) {
-       if (result instanceof Error) {
-            console.log("Error: %s. Failed to download %s. Exiting.", response.message, url);
+	if (result instanceof Error) {
+            console.log("Error: %s", result.message);
+	    console.log("Failed to download %s. Exiting.", url);
             process.exit(1);
         } else {
             checkHtml2console(result, checksfile);
