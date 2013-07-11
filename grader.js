@@ -59,8 +59,8 @@ var checkHtmlFile = function(htmlfile, checksfile) {
 var checkHtmlUrl = function(url, checksfile) {
     rest.get(url).on('complete', function(result, response) {
 	if (result instanceof Error) {
-            console.log("Error: %s", result.message);
-	    console.log("Failed to download %s. Exiting.", url);
+            console.error("Error: %s", result.message);
+            console.log("Failed to download %s. Exiting.", url);
             process.exit(1);
         } else {
             checkHtml2console(result, checksfile);
@@ -87,11 +87,11 @@ if(require.main == module) {
         .option('-u, --url <url>', 'URL to html file')
         .parse(process.argv);
 
-  if(program.url) {
-    checkHtmlUrl(program.url, program.checks);
-  } else {
-    checkHtmlFile(program.file, program.checks);
-  }
+    if(program.url) {
+	checkHtmlUrl(program.url, program.checks);
+    } else {
+	checkHtmlFile(program.file, program.checks);
+    }
 } else {
     exports.checkHtmlFile = checkHtmlFile;
 }
